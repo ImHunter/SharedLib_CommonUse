@@ -4,6 +4,5 @@ def call() {
 
     def logger
     logger = Logger.getGlobal()
-
     logger
 }
