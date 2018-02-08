@@ -2,7 +2,7 @@ import java.util.logging.*
 
 def call(body) {
 
-    def result
+    def result = null
     def logger
     logger = Logger.getGlobal()
 
