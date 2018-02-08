@@ -4,7 +4,7 @@ def call(body) {
 
     def result
     def logger
-    logger = new java.util.logging.Logger.getGlobal()
+    logger = Logger.getGlobal()
 
     // evaluate the body block, and collect configuration into the object
     def config = [:]
