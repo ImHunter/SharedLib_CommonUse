@@ -1,6 +1,6 @@
 def call(def strVal, Boolean defaultValue = false){
 
-    def res;
+    def res
 
     switch(strVal != null ? strVal.toString().toUpperCase() : '') {
         case ['Y', 'YES', '1', 'ДА', 'TRUE', 'ИСТИНА']: 
@@ -13,6 +13,6 @@ def call(def strVal, Boolean defaultValue = false){
             res = defaultVal    
             break
     }
-    res;
+    res
 
 }

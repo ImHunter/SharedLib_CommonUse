@@ -1,8 +1,8 @@
 def call(def dir, Boolean hideException = true){
     try {
-        dir.deleteDir();
+        dir.deleteDir()
     } catch (e) {
         if (hideException==false)
-            throw (e);
+            throw (e)
     }
 }
