@@ -1,6 +1,6 @@
 package Energos.Jenkins.Common
 
-import java.lang.Date
+import java.util.Date
 
 /**
  * Класс-утилита для манипуляций с датами.
