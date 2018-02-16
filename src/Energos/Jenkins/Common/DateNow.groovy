@@ -105,6 +105,7 @@ class DateNow extends Date{
     void addMinutes(int minutes) {
         Calendar c = this.toCalendar()
         c.add(Calendar.MINUTE, minutes)
+        setFromCalendar(c)
     }
 
     DateNow getSafeDate(String safeRangeFrom, String safeRangeTo, Integer minutesDelta = null) {
