@@ -18,12 +18,17 @@ class DateNow extends Date{
         retVal
     }
 
-    void setFromDate(Date value) {
-        setTime(value.getTime())
-    }
-
-    void setFromCalendar(Calendar value) {
-        setTime(value.getTime().getTime())
+    /**
+     * Устанавливает значение текущего объекта из значения типа Date или Calendar
+     * @param value Устанавливаемое значение
+     */
+    void setFromValue(def value) {
+        if (value instanceof Date)
+            setTime((value as Date).getTime())
+        else if (value instanceof Calendar)
+            setTime((value as Calendar).getTime().getTime())
+        else
+            new Exception("Непредусмотренный тип значения $value")
     }
 
     private def setTimePart(int part, int value) {
@@ -72,7 +77,7 @@ class DateNow extends Date{
             }
             parts = lst.toArray()
         }
-        def hh, mm, ss
+        def hh = null, mm, ss
         if (parts.length>0)
             hh = Integer.valueOf(parts[0]).intValue()
         if (parts.length>1)
@@ -105,7 +110,7 @@ class DateNow extends Date{
     void addMinutes(int minutes) {
         Calendar c = this.toCalendar()
         c.add(Calendar.MINUTE, minutes)
-        setFromCalendar(c)
+        setFromValue(c)
     }
 
     DateNow getSafeDate(String safeRangeFrom, String safeRangeTo, Integer minutesDelta = null) {
