@@ -17,7 +17,7 @@ class Dir extends File {
         ArrayList<File> lst = new ArrayList()
         eachFileMatch(mask==null ? '*.*' : mask) {File f ->
             if (f.isFile()) {
-                if (minModifyDate!=null && (Date(f.lastModified())>=minModifyDate)) {
+                if (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate)) {
                     lst.add(f)
                 }
             }
