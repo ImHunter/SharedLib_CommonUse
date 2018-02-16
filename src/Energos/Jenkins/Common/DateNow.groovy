@@ -18,6 +18,14 @@ class DateNow extends Date{
         retVal
     }
 
+    void setFromDate(Date value) {
+        setTime(value.getTime())
+    }
+
+    void setFromCalendar(Calendar value) {
+        setTime(value.getTime().getTime())
+    }
+
     private def setTimePart(int part, int value) {
         def c = toCalendar()
         c.set(part, value)
@@ -26,6 +34,7 @@ class DateNow extends Date{
     }
 
     def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
+        this.clearTime()
         if (hr!=null)
             setTimePart(Calendar.HOUR_OF_DAY, hr)
         if (min!=null)
@@ -45,7 +54,7 @@ class DateNow extends Date{
         this.format(fmtStr)
     }
 
-    private static void withRangeFromStr(String range, Closure body){
+    private static void withParseRange(String range, Closure body){
         boolean hasColon = range.contains(':')
         String[] parts
         if (hasColon)
@@ -77,18 +86,38 @@ class DateNow extends Date{
         body.call(hh, mm, ss)
     }
 
-    boolean inRange(String rangeFrom, String rangeTo){
+    boolean inRange(String safeRangeFrom, String safeRangeTo){
         def fromDt = this.clone() as Date
         def toDt = this.clone() as Date
-        withRangeFromStr(rangeFrom){int hh, int mm, int ss ->
+        withParseRange(safeRangeFrom){ int hh, int mm, int ss ->
             fromDt.setTimeParts(hh, mm, ss)
         }
-        withRangeFromStr(rangeTo){int hh, int mm, int ss ->
+        withParseRange(safeRangeTo){ int hh, int mm, int ss ->
             toDt.setTimeParts(hh, mm, ss)
         }
         if (fromDt>this)
             fromDt = fromDt.previous()
         def retVal = this>=fromDt && this<=toDt
+
+        retVal
+    }
+
+    void addMinutes(int minutes) {
+        Calendar c = this.toCalendar()
+        c.add(Calendar.MINUTE, minutes)
+    }
+
+    DateNow getSafeDate(String safeRangeFrom, String safeRangeTo, Integer minutesDelta = null) {
+        def retVal = this.clone() as DateNow
+        if (retVal.inRange(safeRangeFrom, safeRangeTo)) {
+            withParseRange(safeRangeFrom) {hh, mm, ss ->
+                retVal.setTimeParts(hh, mm, ss)
+                if (retVal.compareTo(this)>0)
+                    --retVal
+            }
+        } else {
+            retVal.addMinutes(minutesDelta)
+        }
         retVal
     }
 
