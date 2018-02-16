@@ -13,7 +13,26 @@ class DateNow extends Date{
      * @return Новый объект Calendar
      */
     Calendar toCalendar(){
-        Calendar.getInstance().setTime(this)
+        Calendar retVal = Calendar.getInstance()
+        retVal.setTime(this)
+        retVal
+    }
+
+    private def setTimePart(int part, int value) {
+        def c = toCalendar()
+        c.set(part, value)
+        this.setTime(c.getTime().getTime())
+        this
+    }
+
+    def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
+        if (hr!=null)
+            setTimePart(Calendar.HOUR_OF_DAY, hr)
+        if (min!=null)
+            setTimePart(Calendar.MINUTE, min)
+        if (sec!=null)
+            setTimePart(Calendar.SECOND, sec)
+        this
     }
 
     String formatFor1C(boolean withTime = true){
@@ -26,7 +45,7 @@ class DateNow extends Date{
         this.format(fmtStr)
     }
 
-    private def getRangeFromStr(String range){
+    private static void withRangeFromStr(String range, Closure body){
         boolean hasColon = range.contains(':')
         String[] parts
         if (hasColon)
@@ -44,12 +63,33 @@ class DateNow extends Date{
             }
             parts = lst.toArray()
         }
+        def hh, mm, ss
+        if (parts.length>0)
+            hh = Integer.valueOf(parts[0]).intValue()
+        if (parts.length>1)
+            mm = Integer.valueOf(parts[1]).intValue()
+        else
+            mm = 0
+        if (parts.length>2)
+            ss = Integer.valueOf(parts[2]).intValue()
+        else
+            ss = 0
+        body.call(hh, mm, ss)
     }
 
     boolean inRange(String rangeFrom, String rangeTo){
-        int hhFrom, mmFrom, ssFrom
-        int hhTo, mmTo, ssTo
-
+        def fromDt = this.clone() as Date
+        def toDt = this.clone() as Date
+        withRangeFromStr(rangeFrom){int hh, int mm, int ss ->
+            fromDt.setTimeParts(hh, mm, ss)
+        }
+        withRangeFromStr(rangeTo){int hh, int mm, int ss ->
+            toDt.setTimeParts(hh, mm, ss)
+        }
+        if (fromDt>this)
+            fromDt = fromDt.previous()
+        def retVal = this>=fromDt && this<=toDt
+        retVal
     }
 
 }
