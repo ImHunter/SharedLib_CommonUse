@@ -50,12 +50,16 @@ class DateNow extends Date{
         this
     }
 
-    String formatFor1C(boolean withTime = true){
-        String fmtStr = withTime ? 'yyyyMMddHHmmss' : 'yyyyMMdd'
+    String formatFor1C(){
+        boolean hasTime
+        def c = this.toCalendar()
+        hasTime = c.equals(c.clearTime())
+
+        String fmtStr = hasTime ? 'yyyyMMddHHmmss' : 'yyyyMMdd'
         this.format(fmtStr)
     }
 
-    String formatXML(){
+    String formatForXML(){
         String fmtStr = 'yyyy-MM-ddTHH:mm:ss'
         this.format(fmtStr)
     }
