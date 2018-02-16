@@ -15,11 +15,12 @@ class Dir extends File {
 
     File[] findFiles(String mask = null, Date minModifyDate = null){
         ArrayList<File> lst = new ArrayList()
+        boolean dateChecked
         eachFileMatch(mask==null ? '*.*' : mask) {File f ->
             if (f.isFile()) {
-                if (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate)) {
+                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
+                if (dateChecked)
                     lst.add(f)
-                }
             }
         }
         lst.toArray()
