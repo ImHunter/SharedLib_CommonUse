@@ -22,13 +22,14 @@ class DateNow extends Date{
      * Устанавливает значение текущего объекта из значения типа Date или Calendar
      * @param value Устанавливаемое значение
      */
-    void setFromValue(def value) {
+    def setFromValue(def value) {
         if (value instanceof Date)
             setTime((value as Date).getTime())
         else if (value instanceof Calendar)
             setTime((value as Calendar).getTime().getTime())
         else
             new Exception("Непредусмотренный тип значения $value")
+        this
     }
 
     private def setTimePart(int part, int value) {
@@ -54,8 +55,8 @@ class DateNow extends Date{
         this.format(fmtStr)
     }
 
-    String formatToXML(boolean withTime = true){
-        String fmtStr = withTime ? 'yyyy-MM-ddTHH:mm:ss' : 'yyyy-MM-dd'
+    String formatXML(){
+        String fmtStr = 'yyyy-MM-ddTHH:mm:ss'
         this.format(fmtStr)
     }
 
