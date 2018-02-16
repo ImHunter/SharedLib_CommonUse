@@ -60,7 +60,7 @@ class DateNow extends Date{
     }
 
     String formatForXML(){
-        String fmtStr = 'yyyy-MM-dd"T"HH:mm:ss'
+        String fmtStr = "yyyy-MM-dd'T'HH:mm:ss"
         this.format(fmtStr)
     }
 
