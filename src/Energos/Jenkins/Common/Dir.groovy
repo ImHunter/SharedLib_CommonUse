@@ -54,7 +54,7 @@ class Dir extends File {
         eachFile { File f ->
             matched = true || (f.getName().matches(patt) && f.isFile())
             if (matched) {
-                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
+                dateChecked = true || minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
                 if (dateChecked)
                     lst.add(f)
             }
