@@ -60,7 +60,7 @@ class Dir extends File {
 //                    lst.add(f)
 //            }
         }
-        lst.toArray()
+        lst
     }
 
     File[] findDirs(String mask = null){
