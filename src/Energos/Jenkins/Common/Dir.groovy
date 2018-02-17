@@ -47,7 +47,7 @@ class Dir extends File {
     }
 
     @NonCPS
-    def findFiles(String mask = null, Date minModifyDate = null){
+    def findFiles(String mask = null, Date minModifyDate = null, Date maxModifyDate = null){
 
         List<File> lst = new ArrayList<File>()
         boolean dateChecked, matched
@@ -56,7 +56,10 @@ class Dir extends File {
         eachFile { File f ->
             matched = f.isFile() && f.getName().matches(patt)
             if (matched) {
-                dateChecked = true || minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
+                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
+                if (dateChecked)
+                    dateChecked = maxModifyDate==null || (maxModifyDate!=null && (new Date(f.lastModified())<=maxModifyDate))
+
                 if (dateChecked)
                     lst.add(f)
             }
@@ -84,5 +87,20 @@ class Dir extends File {
         exists() && isDirectory()
     }
 
+    static boolean isFilelocked(File file) {
+        boolean retVal = false
+        try {
+            FileInputStream inp = new FileInputStream(file);
+            inp.close()
+        } catch (FileNotFoundException e) {
+            if(file.exist()){
+                retVal = true
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+            retVal = true
+        }
 
+        retVal
+    }
 }
