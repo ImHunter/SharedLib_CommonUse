@@ -50,6 +50,17 @@ class DateNow extends Date{
         this
     }
 
+    def setDateParts(Integer yy = null, Integer mm = null, Integer dd = null){
+        this.clearTime()
+        if (yy!=null)
+            setTimePart(Calendar.YEAR, yy)
+        if (mm!=null)
+            setTimePart(Calendar.MONTH, mm)
+        if (dd!=null)
+            setTimePart(Calendar.DAY_OF_MONTH, dd)
+        this
+    }
+
     String formatFor1C(){
         boolean hasTime
         def c = this.toCalendar()
