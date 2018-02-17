@@ -18,8 +18,8 @@ def call(){
         echo parentDir.toString()
 //        parentDir.findDirs('????????-????-????-????-????????????').each { def cache ->
         parentDir.findDirs('*-*-*-*-*').each { def cache ->
+            echo "deletion: ${cache}"
             FileUtil.forceDelete(cache)
-//            echo "rr ${cache}"
         }
     }
 
