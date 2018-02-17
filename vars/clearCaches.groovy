@@ -1,7 +1,8 @@
-import org.apache.ivy.util.FileUtil
+//import org.apache.ivy.util.FileUtil
 
 import java.nio.file.Paths
 import Energos.Jenkins.Common.Dir
+import static org.apache.ivy.util.FileUtil.forceDelete
 
 def call(){
 
@@ -12,7 +13,7 @@ def call(){
     dirs.each {String envDir ->
         cachesPath = Paths.get(envDir, '1C', '1cv8').toString()
         new Dir(cachesPath).findDirs('????????-????-????-????-????????????').each { def deletionDir ->
-            FileUtil.forceDelete(deletionDir)
+            forceDelete(deletionDir)
         }
     }
 }
