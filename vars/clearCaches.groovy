@@ -2,6 +2,6 @@
 def call(){
 
     def vars = System.getenv()
-    echo "$vars.get("APPDATA")"
+    echo "${vars.get("APPDATA".toString())}"
 
 }
