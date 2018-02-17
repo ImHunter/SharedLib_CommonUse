@@ -80,5 +80,9 @@ class Dir extends File {
         lst.toArray()
     }
 
+    boolean enabled() {
+        exists() && isDirectory()
+    }
+
 
 }
