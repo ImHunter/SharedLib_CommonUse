@@ -19,7 +19,7 @@ def call(){
 //        parentDir.findDirs('????????-????-????-????-????????????').each { def cache ->
         parentDir.findDirs('*-*-*-*-*').each { def cache ->
             echo "deletion: ${cache}"
-            FileUtil.forceDelete(cache)
+//            FileUtil.forceDelete(cache)
         }
     }
 
