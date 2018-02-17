@@ -67,6 +67,7 @@ class Dir extends File {
         lst.toArray()
     }
 
+    @NonCPS
     File[] findDirs(String mask = null){
 
         ArrayList<File> lst = new ArrayList()
