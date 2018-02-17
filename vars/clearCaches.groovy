@@ -14,8 +14,8 @@ def call(){
         cachesPath = Paths.get(envDir, '1C', '1cv8').toString()
 //        def parentDir =
         new Dir(cachesPath).findDirs('????????-????-????-????-????????????').each { def cache ->
-            echo "deletion: ${cache}"
-//            FileUtil.forceDelete(cache)
+//            echo "deletion: ${cache}"
+            FileUtil.forceDelete(cache)
         }
     }
 
