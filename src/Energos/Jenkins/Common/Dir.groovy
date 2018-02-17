@@ -45,7 +45,7 @@ class Dir extends File {
         files.length>0
     }
 
-    File[] findFiles(String mask = null, Date minModifyDate = null){
+    def findFiles(String mask = null, Date minModifyDate = null){
 
         ArrayList<File> lst = new ArrayList()
         boolean dateChecked, matched
@@ -59,7 +59,7 @@ class Dir extends File {
                     lst.add(f.toString())
             }
         }
-        lst.toArray()
+        lst
     }
 
     File[] findDirs(String mask = null){
