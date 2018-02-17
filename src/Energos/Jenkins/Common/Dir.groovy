@@ -51,7 +51,7 @@ class Dir extends File {
         boolean dateChecked, matched
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
-        eachFile { def f ->
+        eachFile { File f ->
             lst.add(f)
 //            matched = true || (f.getName().matches(patt) && f.isFile())
 //            if (matched) {
