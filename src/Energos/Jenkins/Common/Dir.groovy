@@ -1,6 +1,7 @@
-package Energos.Jenkins.Common
+//package Energos.Jenkins.Common
 
 import java.io.File
+import java.util.regex.Pattern
 
 class Dir extends File {
 
@@ -48,19 +49,15 @@ class Dir extends File {
     File[] findFiles(String mask = null, Date minModifyDate = null){
 
         ArrayList<File> lst = new ArrayList()
-        boolean dateChecked
-
-//        DirectoryScanner scanner = new DirectoryScanner()
-//        scanner.setIncludes([mask==null ? '*.*' : mask])
-//        scanner.setBasedir(this.)
-//        scanner.setCaseSensitive(false)
-
+        boolean dateChecked, matched
         String patt = wildcardToRegex(mask==null ? '*.*' : mask)
-        eachFileMatch(patt) {File f ->
-            if (f.isFile()) {
-                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
+
+        eachFile {
+            matched = it.toString().matches(patt)
+            if (matched && it.isFile()) {
+                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(it.lastModified())>=minModifyDate))
                 if (dateChecked)
-                    lst.add(f)
+                    lst.add(it)
             }
         }
         lst.toArray()
