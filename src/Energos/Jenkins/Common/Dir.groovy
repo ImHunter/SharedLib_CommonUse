@@ -56,7 +56,7 @@ class Dir extends File {
             if (matched) {
                 dateChecked = true || minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
                 if (dateChecked)
-                    lst.add(f)
+                    lst.add(f.clone())
             }
         }
         lst.toArray()
