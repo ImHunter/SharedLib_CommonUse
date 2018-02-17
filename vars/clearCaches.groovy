@@ -2,6 +2,7 @@
 def call(){
 
     def vars = System.getenv()
-    echo "${vars.get("APPDATA".toString())}"
+    def dirs = [vars.get('APPDATA'), vars.get('LOCALAPPDATA')]
+    echo "${dirs}"
 
 }
