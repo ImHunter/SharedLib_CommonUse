@@ -59,7 +59,7 @@ class Dir extends File {
                     lst.add(f)
             }
         }
-        lst.toArray()
+        lst.toArray() as File[]
     }
 
     File[] findDirs(String mask = null){
@@ -74,7 +74,7 @@ class Dir extends File {
                 lst.add(dir)
             }
         }
-        lst.toArray()
+        lst.toArray() as File[]
     }
 
 
