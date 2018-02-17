@@ -54,7 +54,7 @@ class DateNow extends Date{
         if (yy!=null)
             setTimePart(Calendar.YEAR, yy)
         if (mm!=null)
-            setTimePart(Calendar.MONTH, mm)
+            setTimePart(Calendar.MONTH, mm - 1)
         if (dd!=null)
             setTimePart(Calendar.DAY_OF_MONTH, dd)
         this
