@@ -45,6 +45,7 @@ class Dir extends File {
         files.length>0
     }
 
+    @NonCps
     def findFiles(String mask = null, Date minModifyDate = null){
 
         def retVal = ['rr', 'rtt', 'www']
@@ -53,7 +54,7 @@ class Dir extends File {
         boolean dateChecked, matched
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
-//        eachFile { File f ->
+        eachFile { File f ->
 //            lst.add(f)
 //            matched = true || (f.getName().matches(patt) && f.isFile())
 //            if (matched) {
@@ -61,7 +62,7 @@ class Dir extends File {
 //                if (dateChecked)
 //                    lst.add(f)
 //            }
-//        }
+        }
 //        lst
         retVal
     }
