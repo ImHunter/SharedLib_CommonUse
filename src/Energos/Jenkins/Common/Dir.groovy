@@ -41,7 +41,7 @@ class Dir extends File {
         s.toString()
     }
 
-    private String wildcardToRegexp(String pattern) {
+    static String wildcardToRegexp(String pattern) {
 
         char[] ESCAPES = [ '$', '^', '[', ']', '(', ')', '{', '|', '+', '\\', '.', '<', '>' ]
         String result = "^";
