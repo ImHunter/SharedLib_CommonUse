@@ -47,7 +47,7 @@ class Dir extends File {
 
     def findFiles(String mask = null, Date minModifyDate = null){
 
-        List<File> lst = new ArrayList<File>()
+        def lst = new ArrayList<File>()
         boolean dateChecked, matched
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
