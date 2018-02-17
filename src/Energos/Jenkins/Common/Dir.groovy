@@ -41,6 +41,37 @@ class Dir extends File {
         s.toString()
     }
 
+    private String wildcardToRegexp(String pattern) {
+
+        char[] ESCAPES = [ '$', '^', '[', ']', '(', ')', '{', '|', '+', '\\', '.', '<', '>' ]
+        String result = "^";
+
+        for (int i = 0; i < pattern.length(); i++) {
+            char ch = pattern.charAt(i);
+            boolean escaped = false;
+            for (int j = 0; j < ESCAPES.length; j++) {
+                if (ch == ESCAPES[j]) {
+                    result += "\\" + ch;
+                    escaped = true;
+                    break;
+                }
+            }
+
+            if (!escaped) {
+                if (ch == '*') {
+                    result += ".*";
+                } else if (ch == '?') {
+                    result += ".";
+                } else {
+                    result += ch;
+                }
+            }
+        }
+        result += '$'
+        return result;
+    }
+
+
     boolean hasFiles(String mask = null, Date minModifyDate = null){
         File[] files = findFiles(mask, minModifyDate)
         files.length>0
@@ -67,7 +98,7 @@ class Dir extends File {
 
         ArrayList<File> lst = new ArrayList()
         boolean matched
-        String patt = wildcardToRegex(mask==null ? '*.*' : mask)
+        String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
         eachDir { dir ->
             matched = dir.toString().matches(patt)
