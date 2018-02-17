@@ -40,7 +40,7 @@ class DateNow extends Date{
     }
 
     def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
-        this.clearTime()
+        this.setFromValue(this.clearTime())
         if (hr!=null)
             setTimePart(Calendar.HOUR_OF_DAY, hr)
         if (min!=null)
@@ -51,7 +51,6 @@ class DateNow extends Date{
     }
 
     def setDateParts(Integer yy = null, Integer mm = null, Integer dd = null){
-        this.clearTime()
         if (yy!=null)
             setTimePart(Calendar.YEAR, yy)
         if (mm!=null)
