@@ -41,8 +41,8 @@ class Dir extends File {
     }
 
 
-    boolean hasFiles(String mask = null, Date minModifyDate = null){
-        File[] files = findFiles(mask, minModifyDate)
+    boolean hasFiles(String mask = null, Date minModifyDate = null, Date maxModifyDate = null){
+        File[] files = findFiles(mask, minModifyDate, maxModifyDate)
         files.length>0
     }
 
@@ -58,8 +58,7 @@ class Dir extends File {
             if (matched) {
                 dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
                 if (dateChecked)
-                    dateChecked = maxModifyDate==null || (maxModifyDate!=null && (new Date(f.lastModified())<=maxModifyDate))
-
+                    dateChecked = maxModifyDate==null || (maxModifyDate!=null && (new Date(f.lastModified())<maxModifyDate))
                 if (dateChecked)
                     lst.add(f)
             }
