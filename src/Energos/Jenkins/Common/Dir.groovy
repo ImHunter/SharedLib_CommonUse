@@ -9,38 +9,6 @@ class Dir extends File {
         super(s)
     }
 
-    static String wildcardToRegex(String wildcard){
-        StringBuffer s = new StringBuffer(wildcard.length())
-        s.append('^')
-        int is = wildcard.length()
-        for (int i = 0; i < is; i++) {
-            char c = wildcard.charAt(i)
-            switch(c) {
-                case '*':
-                    s.append(".*")
-                    break
-                case '?':
-                    s.append(".")
-                    break
-                case '^': // escape character in cmd.exe
-                    s.append("\\")
-                    break
-            // escape special regexp-characters
-                case '(': case ')': case '[': case ']': case '$':
-                case '.': case '{': case '}': case '|':
-                case '\\':
-                    s.append("\\")
-                    s.append(c)
-                    break
-                default:
-                    s.append(c)
-                    break
-            }
-        }
-        s.append('$')
-        s.toString()
-    }
-
     static String wildcardToRegexp(String pattern) {
 
         char[] ESCAPES = [ '$', '^', '[', ']', '(', ')', '{', '|', '+', '\\', '.', '<', '>' ]
@@ -81,14 +49,14 @@ class Dir extends File {
 
         ArrayList<File> lst = new ArrayList()
         boolean dateChecked, matched
-        String patt = wildcardToRegex(mask==null ? '*.*' : mask)
+        String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
-        eachFile {
-            matched = it.getName().matches(patt)
-            if (matched && it.isFile()) {
-                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(it.lastModified())>=minModifyDate))
+        eachFile { def f ->
+            matched = f.getName().matches(patt)
+            if (matched && f.isFile()) {
+                dateChecked = minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
                 if (dateChecked)
-                    lst.add(it)
+                    lst.add(f)
             }
         }
         lst.toArray()
