@@ -49,14 +49,11 @@ class Dir extends File {
     @NonCPS
     def findFiles(String mask = null, Date minModifyDate = null){
 
-//        def retVal = ['rr', 'rtt', 'www']
-//
         List<File> lst = new ArrayList<File>()
         boolean dateChecked, matched
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
         eachFile { File f ->
-//            lst.add(f)
             matched = true || (f.getName().matches(patt) && f.isFile())
             if (matched) {
                 dateChecked = true || minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
@@ -68,9 +65,9 @@ class Dir extends File {
     }
 
     @NonCPS
-    File[] findDirs(String mask = null){
+    def findDirs(String mask = null){
 
-        ArrayList<File> lst = new ArrayList()
+        List<File> lst = new ArrayList<File>()
         boolean matched
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
@@ -80,7 +77,7 @@ class Dir extends File {
                 lst.add(dir)
             }
         }
-        lst.toArray() as File[]
+        lst.toArray()
     }
 
 
