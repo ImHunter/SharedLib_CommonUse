@@ -17,7 +17,7 @@ def call(){
         def parentDir = new Dir(cachesPath)
         echo parentDir.toString()
 //        parentDir.findDirs('????????-????-????-????-????????????').each { def cache ->
-        parentDir.findDirs('*-*-*-*-*').each { def cache ->
+        parentDir.findDirs().each { def cache ->
             echo "deletion: ${cache}"
 //            FileUtil.forceDelete(cache)
         }
