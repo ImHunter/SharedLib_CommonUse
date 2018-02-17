@@ -56,7 +56,7 @@ class Dir extends File {
         String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
 
         eachFile { File f ->
-//            lst.add(f)
+            lst.add(f)
 //            matched = true || (f.getName().matches(patt) && f.isFile())
 //            if (matched) {
 //                dateChecked = true || minModifyDate==null || (minModifyDate!=null && (new Date(f.lastModified())>=minModifyDate))
