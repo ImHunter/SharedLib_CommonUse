@@ -1,5 +1,7 @@
-//import Energos.Jenkins.Common.Dir
+package Energos.Jenkins.Common
+
+import Energos.Jenkins.Common.Dir
 
 def call(String path){
-    new Dir(path)
+    new Energos.Jenkins.Common.Dir(path)
 }
