@@ -63,4 +63,20 @@ class Dir extends File {
         lst.toArray()
     }
 
+    File[] findDirs(String mask = null){
+
+        ArrayList<File> lst = new ArrayList()
+        boolean matched
+        String patt = wildcardToRegex(mask==null ? '*.*' : mask)
+
+        eachDir {
+            matched = it.toString().matches(patt)
+            if (matched) {
+                lst.add(it)
+            }
+        }
+        lst.toArray()
+    }
+
+
 }
