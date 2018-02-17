@@ -11,7 +11,7 @@ class Dir extends File {
     static String wildcardToRegex(String wildcard){
         StringBuffer s = new StringBuffer(wildcard.length())
         s.append('^')
-        is = wildcard.length()
+        int is = wildcard.length()
         for (int i = 0; i < is; i++) {
             char c = wildcard.charAt(i)
             switch(c) {
