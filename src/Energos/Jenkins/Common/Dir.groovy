@@ -45,7 +45,7 @@ class Dir extends File {
         files.length>0
     }
 
-    @NonCps
+    @NonCPS
     def findFiles(String mask = null, Date minModifyDate = null){
 
         def retVal = ['rr', 'rtt', 'www']
