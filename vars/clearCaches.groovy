@@ -10,7 +10,7 @@ def call(){
 
     dirs.each {String envDir ->
         cachesPath = Paths.get(envDir, '1C', '1cv8').toString()
-        echo cachesPath
+//        echo cachesPath
         def parentDir = new Dir(cachesPath)
         echo parentDir.toString()
         parentDir.findDirs('????????-????-????-????-????????????').each { def cache ->
