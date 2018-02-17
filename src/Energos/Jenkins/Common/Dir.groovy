@@ -70,7 +70,7 @@ class Dir extends File {
         String patt = wildcardToRegex(mask==null ? '*.*' : mask)
 
         eachDir { dir ->
-            matched = true
+            matched = dir.toString().matches(patt)
             if (matched) {
                 lst.add(dir)
             }
