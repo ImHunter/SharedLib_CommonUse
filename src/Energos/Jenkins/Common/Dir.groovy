@@ -69,10 +69,10 @@ class Dir extends File {
         boolean matched
         String patt = wildcardToRegex(mask==null ? '*.*' : mask)
 
-        find {
-            matched = it.isDirectory()
+        eachDir { dir ->
+            matched = true
             if (matched) {
-                lst.add(it)
+                lst.add(dir)
             }
         }
         lst.toArray()
