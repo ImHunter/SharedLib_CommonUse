@@ -1,3 +1,6 @@
+import org.apache.ivy.util.FileUtil
+import org.apache.tools.ant.util.FileUtils
+
 import java.nio.file.Paths
 import Energos.Jenkins.Common.Dir
 
@@ -15,7 +18,8 @@ def call(){
         echo parentDir.toString()
 //        parentDir.findDirs('????????-????-????-????-????????????').each { def cache ->
         parentDir.findDirs('*-*-*-*-*').each { def cache ->
-            echo "rr ${cache}"
+            FileUtil.forceDelete(cache)
+//            echo "rr ${cache}"
         }
     }
 
