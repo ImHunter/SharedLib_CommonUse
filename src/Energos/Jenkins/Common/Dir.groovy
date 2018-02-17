@@ -1,4 +1,4 @@
-//package Energos.Jenkins.Common
+package Energos.Jenkins.Common
 
 import java.io.File
 import java.util.regex.Pattern
