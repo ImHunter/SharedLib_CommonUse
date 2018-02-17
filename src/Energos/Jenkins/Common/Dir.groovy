@@ -69,7 +69,7 @@ class Dir extends File {
         boolean matched
         String patt = wildcardToRegex(mask==null ? '*.*' : mask)
 
-        eachFile {
+        find {
             matched = it.isDirectory()
             if (matched) {
                 lst.add(it)
