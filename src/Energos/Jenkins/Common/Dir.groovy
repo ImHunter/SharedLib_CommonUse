@@ -98,7 +98,7 @@ class Dir extends File {
 
         ArrayList<File> lst = new ArrayList()
         boolean matched
-        String patt = wildcardToRegexp(mask==null ? '*.*' : mask)
+        String patt = wildcardToRegex(mask==null ? '*.*' : mask)
 
         eachDir { dir ->
             matched = dir.getName().matches(patt)
