@@ -38,7 +38,7 @@ class DateNow extends Date{
 //            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('uuuuMMddhhmmss')
             DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                     .parseStrict()
-                    .appendPattern("uuuuMMddhhmmss")
+                    .appendPattern("uuuuMMddHHmmss")
                     .toFormatter()
                     .withResolverStyle(ResolverStyle.STRICT)
 //            try {
