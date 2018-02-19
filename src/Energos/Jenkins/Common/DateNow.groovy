@@ -36,7 +36,7 @@ class DateNow extends Date{
         def retVal
         if (strVal.length()==8) {
             ldt = LocalDate.parse(strVal, formatter)
-            retVal = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())
+            retVal = Date.from(ldt.atStartOfDay(ZoneId.systemDefault()).toInstant())
         } else {
             ldt = LocalDateTime.parse(strVal, formatter)
             ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault())
