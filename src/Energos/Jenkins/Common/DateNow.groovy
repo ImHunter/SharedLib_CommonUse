@@ -33,15 +33,17 @@ class DateNow extends Date{
                 .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT)
         def ldt
+        def retVal
         if (strVal.length()==8) {
-            ldt = LocalDate.parse(strVal, formatter) as LocalDateTime
+            ldt = LocalDate.parse(strVal, formatter)
+            retVal = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())
         } else {
             ldt = LocalDateTime.parse(strVal, formatter)
+            ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault())
+            GregorianCalendar cal = GregorianCalendar.from(zdt)
+            retVal = cal.getTime()
         }
-        ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault())
-        GregorianCalendar cal = GregorianCalendar.from(zdt)
-        cal.getTime()
-
+        retVal
     }
 
     /**
