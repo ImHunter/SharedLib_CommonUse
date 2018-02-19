@@ -1,5 +1,6 @@
 package Energos.Jenkins.Common
 
+import java.time.format.DateTimeFormatter
 import java.util.Date
 import  java.util.Calendar
 
@@ -27,7 +28,29 @@ class DateNow extends Date{
             setTime((value as Date).getTime())
         else if (value instanceof Calendar)
             setTime((value as Calendar).getTime().getTime())
-        else
+        else if (value instanceof String || value instanceof  GString) {
+            String strVal = value.toString()
+            String matcher
+            Date dateVal
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmmss")
+            try {
+                dateVal = formatter.parse(strVal)
+            } catch (e) {
+                formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+                try {
+                    dateVal = formatter.parse(strVal)
+                } catch (e) {
+                    formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+                    try {
+                        dateVal = formatter.parse(strVal)
+                    } catch (e) {
+                        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+                        dateVal = formatter.parse(strVal)
+                    }
+                }
+            }
+            setFromValue(dateVal)
+        } else
             new Exception("Непредусмотренный тип значения $value")
         this
     }
@@ -140,6 +163,24 @@ class DateNow extends Date{
             retVal.addMinutes(minutesDelta)
         }
         retVal
+    }
+
+    def splitWith(Closure closure) {
+
+        int yy, MM, dd, hh, mm, ss
+        Calendar c = toCalendar()
+
+        yy = c.get(Calendar.YEAR)
+        MM = c.get(Calendar.MONTH) + 1
+        dd = c.get(Calendar.DAY_OF_MONTH)
+        hh = c.get(Calendar.HOUR_OF_DAY)
+        mm = c.get(Calendar.MINUTE)
+        ss = c.get(Calendar.SECOND)
+        if (closure!=null)
+            closure.call(yy, MM, dd, hh, mm, ss)
+
+        [yy, MM, dd, hh, mm, ss]
+
     }
 
 }
