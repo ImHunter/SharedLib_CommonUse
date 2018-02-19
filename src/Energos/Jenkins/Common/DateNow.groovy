@@ -1,5 +1,6 @@
 package Energos.Jenkins.Common
 
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import  java.util.Calendar
@@ -34,7 +35,7 @@ class DateNow extends Date{
             Date dateVal
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern('yyyyMMddhhmmss')
 //            try {
-                dateVal = formatter.parse(strVal)
+                dateVal = LocalDateTime.parse(strVal, formatter)
 //            } catch (e) {
 //                formatter = DateTimeFormatter.ofPattern('yyyyMMdd')
 //                try {
