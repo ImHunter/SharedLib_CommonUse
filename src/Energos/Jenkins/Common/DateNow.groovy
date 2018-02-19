@@ -55,7 +55,7 @@ class DateNow extends Date{
             setTime((value as Calendar).getTime().getTime())
         else if (value instanceof String || value instanceof  GString) {
             String strVal = value.toString()
-            setFromValue(getFromString(strVal))
+            setFromValue(getFromString(strVal, 'uuuuMMdd'))
             try {
                 setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
             } catch (e) {
