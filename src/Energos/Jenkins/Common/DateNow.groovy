@@ -59,9 +59,9 @@ class DateNow extends Date{
                 setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
             } catch (e) {
                 try {
-                    setFromValue(getFromString(strVal, 'yyyyMMdd'))
+                    setFromValue(getFromString(strVal, 'uuuuMMdd'))
                 } catch (ee) {
-                    setFromValue(getFromString(strVal, "yyyy-MM-dd'T'HH:mm:ss".toString()))
+                    setFromValue(getFromString(strVal, "uuuu-MM-dd'T'HH:mm:ss".toString()))
                 }
             }
 //            setFromValue(dateVal)
