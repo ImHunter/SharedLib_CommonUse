@@ -1,5 +1,6 @@
 package Energos.Jenkins.Common
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -31,7 +32,12 @@ class DateNow extends Date{
                 .appendPattern(fmt)
                 .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT)
-        LocalDateTime ldt = LocalDateTime.parse(strVal, formatter)
+
+        if (strVal.length()==6) {
+            LocalDate ldt = LocalDate.parse(strVal, formatter)
+        } else {
+            LocalDateTime ldt = LocalDateTime.parse(strVal, formatter)
+        }
         ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault())
         GregorianCalendar cal = GregorianCalendar.from(zdt)
         cal.getTime()
