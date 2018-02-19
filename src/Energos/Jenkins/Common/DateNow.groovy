@@ -49,16 +49,15 @@ class DateNow extends Date{
             setTime((value as Calendar).getTime().getTime())
         else if (value instanceof String || value instanceof  GString) {
             String strVal = value.toString()
-            setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
-//            } catch (e) {
-//                formatter = DateTimeFormatter.ofPattern('yyyyMMdd')
-//                try {
-//                    dateVal = formatter.parse(strVal)
-//                } catch (ee) {
-//                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss".toString())
-//                        dateVal = formatter.parse(strVal)
-//                }
-//            }
+            try {
+                setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
+            } catch (e) {
+                try {
+                    setFromValue(getFromString(strVal, 'yyyyMMdd'))
+                } catch (ee) {
+                    setFromValue(getFromString(strVal, "yyyy-MM-dd'T'HH:mm:ss".toString()))
+                }
+            }
 //            setFromValue(dateVal)
         } else
             new Exception("Непредусмотренный тип значения $value")
