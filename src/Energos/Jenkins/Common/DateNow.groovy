@@ -33,7 +33,7 @@ class DateNow extends Date{
                 .toFormatter()
                 .withResolverStyle(ResolverStyle.STRICT)
         def ldt
-        if (strVal.length()==6) {
+        if (strVal.length()==8) {
             ldt = LocalDate.parse(strVal, formatter)
         } else {
             ldt = LocalDateTime.parse(strVal, formatter)
