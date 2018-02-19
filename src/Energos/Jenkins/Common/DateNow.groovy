@@ -24,10 +24,18 @@ class DateNow extends Date{
         retVal
     }
 
-    private static Date fromLdt(LocalDateTime ldt) {
-        ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault());
-        GregorianCalendar cal = GregorianCalendar.from(zdt);
-        cal.getTime();
+    private static Date getFromString(String strVal, String fmt) {
+
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .parseStrict()
+                .appendPattern(fmt)
+                .toFormatter()
+                .withResolverStyle(ResolverStyle.STRICT)
+        LocalDateTime ldt = LocalDateTime.parse(strVal, formatter)
+        ZonedDateTime zdt = ZonedDateTime.of(ldt, ZoneId.systemDefault())
+        GregorianCalendar cal = GregorianCalendar.from(zdt)
+        cal.getTime()
+
     }
 
     /**
@@ -41,16 +49,7 @@ class DateNow extends Date{
             setTime((value as Calendar).getTime().getTime())
         else if (value instanceof String || value instanceof  GString) {
             String strVal = value.toString()
-            String matcher
-            Date dateVal
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('uuuuMMddhhmmss')
-            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                    .parseStrict()
-                    .appendPattern("uuuuMMddHHmmss")
-                    .toFormatter()
-                    .withResolverStyle(ResolverStyle.STRICT)
-//            try {
-              setFromValue(fromLdt(LocalDateTime.parse(strVal, formatter)))
+            setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
 //            } catch (e) {
 //                formatter = DateTimeFormatter.ofPattern('yyyyMMdd')
 //                try {
