@@ -32,21 +32,16 @@ class DateNow extends Date{
             String strVal = value.toString()
             String matcher
             Date dateVal
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddhhmmss")
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('yyyyMMddhhmmss')
             try {
                 dateVal = formatter.parse(strVal)
             } catch (e) {
-                formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+                formatter = DateTimeFormatter.ofPattern('yyyyMMdd')
                 try {
                     dateVal = formatter.parse(strVal)
                 } catch (ee) {
-                    formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
-                    try {
+                    formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss".toString())
                         dateVal = formatter.parse(strVal)
-                    } catch (eee) {
-                        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-                        dateVal = formatter.parse(strVal)
-                    }
                 }
             }
             setFromValue(dateVal)
