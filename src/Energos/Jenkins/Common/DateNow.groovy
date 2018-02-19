@@ -2,6 +2,7 @@ package Energos.Jenkins.Common
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
 import java.util.Date
 import  java.util.Calendar
 
@@ -33,7 +34,12 @@ class DateNow extends Date{
             String strVal = value.toString()
             String matcher
             Date dateVal
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('uuuuMMddhhmmss')
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('uuuuMMddhhmmss')
+            DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                    .parseStrict()
+                    .appendPattern("uuuuMMddhhmmss")
+                    .toFormatter()
+                    .withResolverStyle(ResolverStyle.STRICT)
 //            try {
                 LocalDateTime.parse(strVal, formatter)
 //            } catch (e) {
