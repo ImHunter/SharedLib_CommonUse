@@ -39,11 +39,11 @@ class DateNow extends Date{
                 formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
                 try {
                     dateVal = formatter.parse(strVal)
-                } catch (e) {
+                } catch (ee) {
                     formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
                     try {
                         dateVal = formatter.parse(strVal)
-                    } catch (e) {
+                    } catch (eee) {
                         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
                         dateVal = formatter.parse(strVal)
                     }
