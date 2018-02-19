@@ -33,7 +33,7 @@ class DateNow extends Date{
             String strVal = value.toString()
             String matcher
             Date dateVal
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('yyyyMMddhhmmss')
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern('uuuuMMddhhmmss')
 //            try {
                 LocalDateTime.parse(strVal, formatter)
 //            } catch (e) {
