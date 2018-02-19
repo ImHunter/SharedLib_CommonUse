@@ -81,7 +81,7 @@ class DateNow extends Date{
     }
 
     def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
-        this.setFromValue(this.clearTime())
+//        this.setFromValue(this.clearTime())
         if (hr!=null)
             setTimePart(Calendar.HOUR_OF_DAY, hr)
         if (min!=null)
