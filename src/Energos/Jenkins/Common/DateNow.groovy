@@ -45,7 +45,7 @@ class DateNow extends Date{
 //                        dateVal = formatter.parse(strVal)
 //                }
 //            }
-            setFromValue(dateVal)
+//            setFromValue(dateVal)
         } else
             new Exception("Непредусмотренный тип значения $value")
         this
