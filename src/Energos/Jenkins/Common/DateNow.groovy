@@ -15,6 +15,7 @@ import  java.util.Calendar
  * Создан, чтобы инкапсулировать специфические для CI (в частности, для Деплойки) операции. И чтобы при этом не выходить из песочницы Jenkins.
  */
 class DateNow extends Date{
+
     /**
      * Создаем объект типа Calendar на основании текущего значения объекта
      * @return Новый объект Calendar
@@ -25,6 +26,12 @@ class DateNow extends Date{
         retVal
     }
 
+    /**
+     * Конвертация строки в Date
+     * @param strVal Строковое представление
+     * @param fmt Форматная строка, согласно которой будет интерпретироваться strVal
+     * @return Дата из строки
+     */
     private static Date getFromString(String strVal, String fmt) {
 
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -47,8 +54,9 @@ class DateNow extends Date{
     }
 
     /**
-     * Устанавливает значение текущего объекта из значения типа Date или Calendar
-     * @param value Устанавливаемое значение
+     * Устанавливает значение текущего объекта из значения типа Date, Calendar или String
+     * @param value Устанавливаемое значение.
+     * При передаче параметра строкой последовательно делаются попытки преобразования с использованием форматов ггггММддччммсс ('uuuuMMddHHmmss'), ггггММдд ('uuuuMMdd'), гггг-ММ-ддTчч:мм:сс ("uuuu-MM-dd'T'HH:mm:ss")
      */
     def setFromValue(def value) {
         if (value instanceof Date)
@@ -73,6 +81,12 @@ class DateNow extends Date{
         this
     }
 
+    /**
+     * Установка значения какой-либо составляющей даты
+     * @param part Устанавливаемая часть - какая-либо константа Calendar. Например, Calendar.HOUR_OF_DAY
+     * @param value Значение устанавливаемой части
+     * @return Возвращается текущий объект с установленным значением части даты
+     */
     private def setTimePart(int part, int value) {
         def c = toCalendar()
         c.set(part, value)
@@ -80,6 +94,13 @@ class DateNow extends Date{
         this
     }
 
+    /**
+     * Установка времени путем передачи значений частей времени
+     * @param hr Устанавливаемые часы. При передаче значения null, уже установленное значение часов меняться не будет.
+     * @param min Устанавливаемые минуты. При передаче значения null, уже установленное значение минут меняться не будет.
+     * @param sec Устанавливаемые секунды. При передаче значения null, уже установленное значение секунд меняться не будет.
+     * @return Текущий объект с измененным временем.
+     */
     def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
 //        this.setFromValue(this.clearTime())
         if (hr!=null)
@@ -183,7 +204,13 @@ class DateNow extends Date{
         retVal
     }
 
-    def splitWith(Closure closure) {
+    /**
+     * Разбивает значение объекта (дату и время) на составляющие.
+     * Составляющие можно прочитать в замыкании (closure) либо, как результат выполнения функции.
+     * @param closure Замыкание, куда передаются составляющие даты в порядке год, месяц, день, час, мин, сек
+     * @return Массив составляющих в порядке год, месяц, день, час, мин, сек
+     */
+    def splitWith(Closure closure = null) {
 
         int yy, MM, dd, hh, mm, ss
         Calendar c = toCalendar()
