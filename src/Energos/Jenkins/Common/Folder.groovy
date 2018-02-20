@@ -3,9 +3,9 @@ package Energos.Jenkins.Common
 import java.io.File
 import java.util.regex.Pattern
 
-class Foldef extends File {
+class Folder extends File {
 
-    Foldef(String s) {
+    Folder(String s) {
         super(s)
     }
 
