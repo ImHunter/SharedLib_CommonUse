@@ -9,6 +9,11 @@ class Folder extends File {
         super(s)
     }
 
+    @Override
+    boolean delete() {
+        return deleteDir()
+    }
+
     @NonCPS
     static String wildcardToRegexp(String pattern) {
 
@@ -85,6 +90,8 @@ class Folder extends File {
     boolean enabled() {
         exists() && isDirectory()
     }
+
+
 
     static boolean isFilelocked(File file) {
         boolean retVal = false
