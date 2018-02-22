@@ -11,7 +11,7 @@ class Folder extends File {
 
     @Override
     boolean delete() {
-        return deleteDir()
+        return super.delete()
     }
 
     @NonCPS
