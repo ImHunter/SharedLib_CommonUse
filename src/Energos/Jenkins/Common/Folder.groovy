@@ -87,6 +87,10 @@ class Folder extends File {
         lst.toArray()
     }
 
+    /**
+     * Проверяет валидность созданного объекта Folder.
+     * @return Возвращает Истина, если Folder - это существующий каталог.
+     */
     boolean enabled() {
         exists() && isDirectory()
     }
@@ -99,7 +103,7 @@ class Folder extends File {
             FileInputStream inp = new FileInputStream(file);
             inp.close()
         } catch (FileNotFoundException e) {
-            if(file.exist()){
+            if(file.exists()){
                 retVal = true
             }
         } catch (Exception e) {
