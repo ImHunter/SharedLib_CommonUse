@@ -1,7 +1,7 @@
 package Energos.Jenkins.Common
 
-import Energos.Jenkins.Common.Folder
+import Common.Folder
 
 def call(String path){
-    new Energos.Jenkins.Common.Folder(path)
+    new Folder(path)
 }

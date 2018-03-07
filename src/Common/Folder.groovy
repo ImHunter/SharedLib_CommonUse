@@ -1,4 +1,6 @@
-package Energos.Jenkins.Common
+package Common
+
+import Energos.Jenkins.Common.NonCPS
 
 import java.io.File
 import java.util.regex.Pattern
