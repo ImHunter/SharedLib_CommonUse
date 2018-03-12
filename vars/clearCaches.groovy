@@ -1,4 +1,4 @@
-import Common.Folder
+import Jenkins.Common.Folder
 
 import java.nio.file.Paths
 import static org.apache.ivy.util.FileUtil.forceDelete

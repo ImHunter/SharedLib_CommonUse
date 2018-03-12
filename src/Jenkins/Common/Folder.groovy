@@ -1,9 +1,4 @@
-package Common
-
-import Energos.Jenkins.Common.NonCPS
-
-import java.io.File
-import java.util.regex.Pattern
+package Jenkins.Common
 
 class Folder extends File {
 

@@ -1,4 +1,4 @@
-package Common
+package Jenkins.Common
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -134,7 +134,7 @@ class DateNow extends Date{
         this.format(fmtStr)
     }
 
-    private static void withParseRange(String range, Closure body){
+    private static void parseRangeWith(String range, Closure body){
         boolean hasColon = range.contains(':')
         String[] parts
         if (hasColon)
@@ -167,12 +167,12 @@ class DateNow extends Date{
     }
 
     boolean inRange(String safeRangeFrom, String safeRangeTo){
-        def fromDt = this.clone() as Date
-        def toDt = this.clone() as Date
-        withParseRange(safeRangeFrom){ int hh, int mm, int ss ->
+        def fromDt = this.clone()
+        def toDt = this.clone()
+        parseRangeWith(safeRangeFrom){ int hh, int mm, int ss ->
             fromDt.setTimeParts(hh, mm, ss)
         }
-        withParseRange(safeRangeTo){ int hh, int mm, int ss ->
+        parseRangeWith(safeRangeTo){ int hh, int mm, int ss ->
             toDt.setTimeParts(hh, mm, ss)
         }
         if (fromDt>this)
@@ -188,10 +188,10 @@ class DateNow extends Date{
         setFromValue(c)
     }
 
-    DateNow getSafeDate(String safeRangeFrom, String safeRangeTo, Integer minutesDelta = null) {
-        def retVal = this.clone() as DateNow
+    def getSafeDate(String safeRangeFrom, String safeRangeTo, Integer minutesDelta = null) {
+        def retVal = this.clone()
         if (retVal.inRange(safeRangeFrom, safeRangeTo)) {
-            withParseRange(safeRangeFrom) {hh, mm, ss ->
+            parseRangeWith(safeRangeFrom) { hh, mm, ss ->
                 retVal.setTimeParts(hh, mm, ss)
                 if (retVal.compareTo(this)>0)
                     --retVal

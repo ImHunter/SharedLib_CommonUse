@@ -1,6 +1,6 @@
-package Energos.Jenkins.Common
+//package Energos.Jenkins.Common
 
-import Common.Folder
+import Jenkins.Common.Folder
 
 def call(String path){
     new Folder(path)
