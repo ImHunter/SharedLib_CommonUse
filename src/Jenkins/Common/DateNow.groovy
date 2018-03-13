@@ -10,7 +10,7 @@ import java.time.format.ResolverStyle
 
 /**
  * Класс-утилита для манипуляций с датами.
- * Создан, чтобы инкапсулировать специфические для CI (в частности, для Деплойки) операции. И чтобы при этом не выходить из песочницы Jenkins.
+ * Создан, чтобы инкапсулировать специфические для CI (в частности, для Ванессы или Деплойки) операции. И чтобы при этом не выходить из песочницы Jenkins.
  */
 class DateNow extends Date{
 
@@ -63,7 +63,6 @@ class DateNow extends Date{
             setTime((value as Calendar).getTime().getTime())
         else if (value instanceof String || value instanceof  GString) {
             String strVal = value.toString()
-//            setFromValue(getFromString(strVal, 'uuuuMMdd'))
             try {
                 setFromValue(getFromString(strVal, 'uuuuMMddHHmmss'))
             } catch (e) {
@@ -73,7 +72,6 @@ class DateNow extends Date{
                     setFromValue(getFromString(strVal, "uuuu-MM-dd'T'HH:mm:ss".toString()))
                 }
             }
-//            setFromValue(dateVal)
         } else
             new Exception("Непредусмотренный тип значения $value")
         this
@@ -100,7 +98,6 @@ class DateNow extends Date{
      * @return Текущий объект с измененным временем.
      */
     def setTimeParts(Integer hr = null, Integer min = null, Integer sec = null){
-//        this.setFromValue(this.clearTime())
         if (hr!=null)
             setTimePart(Calendar.HOUR_OF_DAY, hr)
         if (min!=null)
@@ -120,6 +117,11 @@ class DateNow extends Date{
         this
     }
 
+    /**
+     * Форматирование даты в представление 1С.
+     * Если в дате присуствует время, то форматируется в строку yyyyMMddHHmmss. Иначе форматируется в yyyyMMdd.
+     * @return Строковое представление даты
+     */
     String formatFor1C(){
         boolean hasTime
         def c = this.toCalendar()
@@ -129,6 +131,10 @@ class DateNow extends Date{
         this.format(fmtStr)
     }
 
+    /**
+     * Форматирование даты в представление для XML (yyyy-MM-dd'T'HH:mm:ss).
+     * @return Строковое представление даты
+     */
     String formatForXML(){
         String fmtStr = "yyyy-MM-dd'T'HH:mm:ss"
         this.format(fmtStr)

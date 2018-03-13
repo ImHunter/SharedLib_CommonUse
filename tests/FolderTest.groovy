@@ -8,10 +8,16 @@ class FolderTest extends GroovyTestCase {
         assertTrue(folder.hasFiles('*.bak'))
     }
 
-    void testHasFiles1() {
+    void testHasFilesAllParams() {
         DateNow dt = new DateNow()
         def minDt = dt.getSafeDate('21:00', '20:00', -20)
         println(minDt)
         assertTrue(folder.hasFiles('*.bak', minDt, dt.addMinutes(-1)))
     }
+
+    void  testDirEnabled(){
+        def fld = new Folder('c:\\')
+        assertTrue('Проверка доступности каталога', fld.enabled())
+    }
+
 }
