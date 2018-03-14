@@ -10,7 +10,7 @@ def call(def strVal, Boolean defaultValue = false){
             res = false    
             break
         default:
-            res = defaultVal    
+            res = defaultValue
             break
     }
     res
