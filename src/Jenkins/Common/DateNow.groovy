@@ -243,7 +243,8 @@ class DateNow extends Date{
 
     @Override
     String toString() {
-        String fmtStr = hasTime() ? 'dd.MM.yy HH:mm:ss' : 'dd.MM.yyyy'
+//        String fmtStr = hasTime() ? 'dd.MM.yy HH:mm:ss' : 'dd.MM.yyyy'
+        String fmtStr = 'dd.MM.yy HH:mm:ss'
         this.format(fmtStr)
     }
 }
