@@ -7,7 +7,7 @@ def call(String credID, Closure body) {
     def usName
     def usPwd
 
-    this.withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${credID}",
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${credID}",
                       usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 
         usName = env.USERNAME
@@ -15,6 +15,6 @@ def call(String credID, Closure body) {
     }
 
     body(usName, usPwd)
-    true
+//    true
 
 }
