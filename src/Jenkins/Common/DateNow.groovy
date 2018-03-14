@@ -107,6 +107,14 @@ class DateNow extends Date{
         this
     }
 
+    /**
+     * Установка даты путем передачи значений частей даты.
+     * Если какую-то из частей даты устанавливать не нужно (требуется сохранить ее первоначальное значение), то нужно передать значение null.
+     * @param yy Устанавливаемое значение года.
+     * @param mm Устанавливаемое значение месяца.
+     * @param dd Устанавливаемое значение дня.
+     * @return Текущий объект с измененной датой.
+     */
     def setDateParts(Integer yy = null, Integer mm = null, Integer dd = null){
         if (yy!=null)
             setTimePart(Calendar.YEAR, yy)

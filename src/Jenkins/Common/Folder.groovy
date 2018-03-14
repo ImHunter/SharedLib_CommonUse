@@ -2,15 +2,29 @@ package Jenkins.Common
 
 class Folder extends File {
 
+    /**
+     * Конструктор объекта Folder
+     * @param s Имя файла
+     */
     Folder(String s) {
         super(s)
     }
 
+    /**
+     * Удаление каталога (себя).
+     * Метод просто переопубликован специально, чтобы Jenkins не требовал дополнительных разрешений для удаления каталога.
+     * @return Получилось ли удалить.
+     */
     @Override
     boolean delete() {
-        return super.delete()
+        super.delete()
     }
 
+    /**
+     * Преобразование маски поиска файлов в регулярное выражение.
+     * @param pattern Маска файлов.
+     * @return Регулярное выражение, соответствующее маске файлов.
+     */
     @NonCPS
     static String wildcardToRegexp(String pattern) {
 
@@ -43,11 +57,25 @@ class Folder extends File {
     }
 
 
+    /**
+     * Определение признака, что внутри есть файлы.
+     * @param mask Опциональная маска имени файлов.
+     * @param minModifyDate Опциональная минимальная дата/время изменения файла.
+     * @param maxModifyDate Опциональная максимальная дата/время изменения файла.
+     * @return Признак, что внутри есть файлы
+     */
     boolean hasFiles(String mask = null, Date minModifyDate = null, Date maxModifyDate = null){
         File[] files = findFiles(mask, minModifyDate, maxModifyDate)
         files.length>0
     }
 
+    /**
+     * Поиск файлов внутри себя. Нерекурсивно.
+     * @param mask Опциональная маска имени файлов.
+     * @param minModifyDate Опциональная минимальная дата/время изменения файла.
+     * @param maxModifyDate Опциональная максимальная дата/время изменения файла.
+     * @return Массив найденных файлов (объектов типа File)
+     */
     @NonCPS
     def findFiles(String mask = null, Date minModifyDate = null, Date maxModifyDate = null){
 
@@ -68,6 +96,11 @@ class Folder extends File {
         lst.toArray()
     }
 
+    /**
+     * Поиск каталогов внутри себя. Нерекурсивно.
+     * @param mask Опциональная маска имени каталогов.
+     * @return Массив каталогов (объектов типа File)
+     */
     @NonCPS
     def findDirs(String mask = null){
 
@@ -92,8 +125,12 @@ class Folder extends File {
         exists() && isDirectory()
     }
 
-
-
+    /**
+     * Проверка, что файл заблокирован.
+     * Работа не проверялась. И скорее всего, будет некорректно работать в каталогах без разрешения на изменение.
+     * @param file Проверяемый файл
+     * @return Результат проверки. Если Истина, значит файл заблокирован.
+     */
     static boolean isFilelocked(File file) {
         boolean retVal = false
         try {
@@ -110,6 +147,5 @@ class Folder extends File {
 
         retVal
     }
-
 
 }
