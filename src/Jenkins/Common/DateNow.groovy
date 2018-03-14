@@ -131,11 +131,7 @@ class DateNow extends Date{
      * @return Строковое представление даты
      */
     String formatFor1C(){
-        boolean hasTime
-        def c = this.toCalendar()
-        hasTime = c.equals(c.clearTime())
-
-        String fmtStr = hasTime ? 'yyyyMMddHHmmss' : 'yyyyMMdd'
+        String fmtStr = hasTime() ? 'yyyyMMddHHmmss' : 'yyyyMMdd'
         this.format(fmtStr)
     }
 
@@ -240,4 +236,14 @@ class DateNow extends Date{
 
     }
 
+    Boolean hasTime() {
+        def c = this.toCalendar()
+        c.equals(c.clearTime())
+    }
+
+    @Override
+    String toString() {
+        String fmtStr = hasTime() ? 'dd.MM.yy HH:mm:ss' : 'dd.MM.yyyy'
+        this.format(fmtStr)
+    }
 }
