@@ -10,8 +10,8 @@ def call(String credID, Closure body) {
     this.withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: "${credID}",
                       usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 
-        usName = envVar.USERNAME
-        usPwd = envVar.PASSWORD ? envVar.PASSWORD : '\"\"'
+        usName = env.USERNAME
+        usPwd = env.PASSWORD ? envVar.PASSWORD : '\"\"'
     }
 
     body(usName, usPwd)
