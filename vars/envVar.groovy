@@ -1,7 +1,7 @@
-def call(String envKey, boolean withAssert = true){
+def call(def envKey, def withAssert = true){
 
-    def res = envVar[envKey]
-    if (withAssert)
+    def res = env[envKey]
+    if (withAssert==true)
         assert res != null
 
     res
