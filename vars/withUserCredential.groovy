@@ -1,7 +1,7 @@
 def call(String credID, Closure body) {
 
     def config = [:]
-    body.resolveStrategy = Closure.OWNER_ONLY
+    body.resolveStrategy = Closure.OWNER_FIRST
     body.delegate = config
 
     def usName
