@@ -1,6 +1,6 @@
 def call(String envKey, boolean withAssert = true){
 
-    def res = env[envKey]
+    def res = envVar[envKey]
     if (withAssert)
         assert res != null
 
