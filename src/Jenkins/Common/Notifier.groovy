@@ -5,7 +5,7 @@ class Notifier {
     String address
     String subject
     String body
-    def notifyHandler
+    org.jenkinsci.plugins.workflow.cps.CpsClosure2 notifyHandler
     def owner
 
     void doNotify(){
