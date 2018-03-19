@@ -16,7 +16,7 @@ class Notifier {
         }
     }
 
-    Notifier setNotifyHandler(Closure handler) {
+    Notifier setNotifyHandler(def handler) {
         notifyHandler = handler
         this
     }
