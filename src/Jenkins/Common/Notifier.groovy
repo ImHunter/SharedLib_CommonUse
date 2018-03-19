@@ -8,9 +8,12 @@ class Notifier {
     def notifyHandler
     def owner
 
-    void doNotify(){
+    void doNotify(Closure handler = null){
         try {
-            notifyHandler?.call(this)
+            if (handler!=null)
+                handler.call(this)
+            else if (notifyHandler!=null)
+                notifyHandler?.call(this)
         } catch (e) {
             owner?.echo(e.getMessage())
         }
