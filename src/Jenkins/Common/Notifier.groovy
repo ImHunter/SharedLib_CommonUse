@@ -16,7 +16,7 @@ class Notifier {
         }
     }
 
-    Notifier setNotifyHandler(Closure handler) {
+    Notifier setNotifyHandler(groovy.lang.Closure handler) {
         notifyHandler = handler
         this
     }
