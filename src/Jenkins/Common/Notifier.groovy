@@ -5,7 +5,7 @@ class Notifier {
     String address
     String subject
     String body
-    Closure notifyHandler
+    def notifyHandler
     def owner
 
     void doNotify(){
