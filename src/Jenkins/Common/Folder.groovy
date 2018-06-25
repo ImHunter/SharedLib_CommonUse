@@ -1,5 +1,9 @@
 package Jenkins.Common
 
+import org.apache.ivy.plugins.repository.ssh.Scp
+
+import java.security.MessageDigest
+
 class Folder extends File {
 
     /**
@@ -148,4 +152,75 @@ class Folder extends File {
         retVal
     }
 
+    void leaveLastUniqueFiles(def fileMask = '*.*', def uniqueMaxCount = 5){
+        def files = findFiles(fileMask)
+        def uniqueCount
+        if (uniqueMaxCount==null)
+            uniqueCount = 0
+        else
+            uniqueCount = Integer.decode(uniqueMaxCount.toString())
+        if (uniqueCount!=null && uniqueCount>0 && files.size()>uniqueCount) {
+            def infos = []
+            files.each {
+                File f = new File(it.toString())
+                FileInfo fi = new FileInfo()
+                fi.fileName = it.toString()
+                fi.checkSum = generateMD5(f)
+                fi.lastModifyDT = f.lastModified()
+                infos.add(fi)
+            }
+            infos.sort{FileInfo x, FileInfo y -> x.lastModifyDT <=> y.lastModifyDT}
+            infos = infos.reverse()
+            def curIndex
+            def sumsCount = 0
+            infos.each {
+                if (!it.toDelete) {
+                    if (sumsCount<uniqueCount) {
+                        def curSum = it.checkSum
+                        def filesBySum = infos.findAll { FileInfo fileInfo -> fileInfo.checkSum == curSum }
+                        filesBySum.sort { FileInfo x, FileInfo y -> x.lastModifyDT <=> y.lastModifyDT }
+                        filesBySum = filesBySum.reverse()
+                        curIndex = 0
+                        filesBySum.each { FileInfo fileInfo ->
+                            fileInfo.toDelete = curIndex != 0
+                            curIndex++
+                        }
+                        sumsCount++
+                    } else {
+                        it.toDelete = true
+                    }
+                }
+            }
+            // удаляем
+            infos.each {
+                if (it.toDelete) {
+                    def fileDel = new File(it.fileName)
+                    fileDel.delete()
+                }
+            }
+
+        }
+    }
+
+    private def generateMD5(final file) {
+        MessageDigest digest = MessageDigest.getInstance("MD5")
+        file.withInputStream(){ is ->
+            byte[] buffer = new byte[8192]
+            int read = 0
+            while( (read = is.read(buffer)) > 0) {
+                digest.update(buffer, 0, read);
+            }
+        }
+        byte[] md5sum = digest.digest()
+        BigInteger bigInt = new BigInteger(1, md5sum)
+
+        return bigInt.toString(16).padLeft(32, '0')
+    }
+
+    class FileInfo{
+        String fileName
+        long lastModifyDT
+        String checkSum
+        Boolean toDelete = false
+    }
 }

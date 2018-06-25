@@ -20,4 +20,10 @@ class FolderTest extends GroovyTestCase {
         assertTrue('Проверка доступности каталога', fld.enabled())
     }
 
+    void  testLeaveUnique(){
+        def fld = new Folder('E:\\testUniqueFiles')
+        fld.leaveLastUniqueFiles('*.*', '1')
+        assertTrue('Проверка удаления', true)
+    }
+
 }
