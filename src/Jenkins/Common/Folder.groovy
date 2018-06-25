@@ -195,6 +195,7 @@ class Folder extends File {
             infos.each {
                 if (it.toDelete) {
                     def fileDel = new File(it.fileName)
+                    print(it.fileName)
                     fileDel.delete()
                 }
             }
