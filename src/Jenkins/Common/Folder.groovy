@@ -203,6 +203,7 @@ class Folder extends File {
         }
     }
 
+    @NonCPS
     private def generateMD5(final file) {
         MessageDigest digest = MessageDigest.getInstance("MD5")
         file.withInputStream(){ is ->
