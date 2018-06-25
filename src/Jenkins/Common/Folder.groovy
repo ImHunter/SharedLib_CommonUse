@@ -162,7 +162,7 @@ class Folder extends File {
         if (uniqueCount!=null && uniqueCount>0 && files.size()>uniqueCount) {
             def infos = []
             files.each {
-                throw new Exception(it.toString())
+//                throw new Exception(it.toString())
                 File f = it
                 FileInfo fi = new FileInfo()
                 fi.fileName = it.toString()
