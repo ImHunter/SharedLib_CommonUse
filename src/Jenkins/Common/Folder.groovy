@@ -162,6 +162,7 @@ class Folder extends File {
         if (uniqueCount!=null && uniqueCount>0 && files.size()>uniqueCount) {
             def infos = []
             files.each {
+                print(it)
                 File f = new File(it.toString())
                 FileInfo fi = new FileInfo()
                 fi.fileName = it.toString()
@@ -195,7 +196,6 @@ class Folder extends File {
             infos.each {
                 if (it.toDelete) {
                     def fileDel = new File(it.fileName)
-                    print(it.fileName)
                     fileDel.delete()
                 }
             }
