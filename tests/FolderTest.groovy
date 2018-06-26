@@ -22,7 +22,7 @@ class FolderTest extends GroovyTestCase {
 
     void  testLeaveUnique(){
         def fld = new Folder('E:\\testUniqueFiles')
-        fld.leaveLastUniqueFiles('*.*', '1')
+        fld.leaveLastUniqueFiles('*.*')
         assertTrue('Проверка удаления', true)
     }
 
