@@ -152,17 +152,27 @@ class Folder extends File {
         retVal
     }
 
+    /**
+     * Удаление устаревших файлов с выполнением проверки уникальности файлов по контрольной сумме.
+     * @param fileMask Маска, по которой будут искаться удаляемые файлы
+     * @param uniqueMaxCount Максимальное количество уникальных файлов, которые нужно оставить.
+     */
     void leaveLastUniqueFiles(def fileMask = '*.*', def uniqueMaxCount = 5){
-        def files = findFiles(fileMask)
+
+        // чтобы uniqueMaxCount можно было передать пустым или строкой
         def uniqueCount
         if (uniqueMaxCount==null)
             uniqueCount = 0
         else
             uniqueCount = Integer.decode(uniqueMaxCount.toString())
-        if (uniqueCount!=null && uniqueCount>0 && files.size()>uniqueCount) {
+
+        // ищем все файлы
+        def files = findFiles(fileMask)
+
+        if (uniqueCount!=null && uniqueCount>0 && files.size()>0) {
+            // заполняем информацию о файлах
             def infos = []
             files.each {
-//                throw new Exception(it.toString())
                 File f = it
                 FileInfo fi = new FileInfo()
                 fi.fileName = it.toString()
@@ -170,8 +180,10 @@ class Folder extends File {
                 fi.lastModifyDT = f.lastModified()
                 infos.add(fi)
             }
+            // сортируем по дате изменения в порядке убывания
             infos.sort{FileInfo x, FileInfo y -> x.lastModifyDT <=> y.lastModifyDT}
             infos = infos.reverse()
+            // помечаем файлы на удаление
             def curIndex
             def sumsCount = 0
             infos.each {
@@ -192,7 +204,7 @@ class Folder extends File {
                     }
                 }
             }
-            // удаляем
+            // удаляем помеченные
             infos.each {
                 if (it.toDelete) {
                     def fileDel = new File(it.fileName)
@@ -203,8 +215,13 @@ class Folder extends File {
         }
     }
 
+    /**
+     * Функция для подсчета контрольной суммы файла по алгоритму MD5
+     * @param file Файл, по которому считается контрольная сумма
+     * @return Значение контрольной суммы
+     */
     @NonCPS
-    private def generateMD5(final file) {
+    private String generateMD5(final file) {
         MessageDigest digest = MessageDigest.getInstance("MD5")
         file.withInputStream(){ is ->
             byte[] buffer = new byte[8192]
@@ -219,6 +236,9 @@ class Folder extends File {
         return bigInt.toString(16).padLeft(32, '0')
     }
 
+    /**
+     * Внутренний класс с информацией о файле. Используется в функции leaveLastUniqueFiles
+     */
     class FileInfo{
         String fileName
         long lastModifyDT
