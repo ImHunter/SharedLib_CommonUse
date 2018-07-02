@@ -26,4 +26,11 @@ class FolderTest extends GroovyTestCase {
         assertTrue('Проверка удаления', true)
     }
 
+    void  testDatedFilename(){
+        def f = new Folder('e:\\')
+        def res = f.getDatedFileName('bf_')
+        print(res)
+        assertTrue('Проверка удаления', true)
+    }
+
 }

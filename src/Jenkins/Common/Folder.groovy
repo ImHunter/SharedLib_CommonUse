@@ -245,4 +245,9 @@ class Folder extends File {
         String checkSum
         Boolean toDelete = false
     }
+
+    String getDatedFileName(String prefix = 'config_', String suffix = '.cf', String dateFormatString = 'yyyyMMdd_HHmm', def dateVal = null){
+        Date dt = dateVal==null ? Date.newInstance() : dateVal
+        prefix.concat(dt.format(dateFormatString)).concat(suffix)
+    }
 }
