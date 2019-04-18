@@ -247,8 +247,11 @@ class Folder extends File {
     }
 
     String getDatedFileName(Boolean withPath = true, String prefix = 'config_', String suffix = '.cf', String dateFormatString = 'yyyyMMdd_HHmm', def dateVal = null){
+        String fn = ''
         Date dt = dateVal==null ? Date.newInstance() : dateVal
-        def fn = prefix.concat(dt.format(dateFormatString)).concat(suffix)
+        if (prefix!=null) fn = fn.concat(prefix)
+        if (dateFormatString!=null && dateFormatString!='') fn = fn.concat(dt.format(dateFormatString))
+        if (suffix!=null) fn = fn.concat(suffix)
         if (withPath==true)
             (new File(this.toString(), fn)).toString()
         else
