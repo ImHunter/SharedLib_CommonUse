@@ -12,7 +12,6 @@ import java.time.format.ResolverStyle
  * Класс-утилита для манипуляций с датами.
  * Создан, чтобы инкапсулировать специфические для CI (в частности, для Ванессы или Деплойки) операции. И чтобы при этом не выходить из песочницы Jenkins.
  */
-@NonCPS
 class DateNow extends Date{
 
     /**
@@ -242,6 +241,7 @@ class DateNow extends Date{
         c.equals(c.clearTime())
     }
 
+    @NonCPS
     @Override
     String toString() {
 //        String fmtStr = hasTime() ? 'dd.MM.yy HH:mm:ss' : 'dd.MM.yyyy'
