@@ -1,3 +1,9 @@
+/**
+ * Функция, прочитывающая лог выполнения задания Jenkins
+ * @param jobName Имя задания
+ * @param buildNumber Номер сборки. Если не задать, то прочитается лог самой последней сборки
+ * @return Содержание лога
+ */
 def call(String jobName = null, def buildNumber = null){
     
     String logContent
@@ -12,7 +18,6 @@ def call(String jobName = null, def buildNumber = null){
 
     File logFile = new java.io.File(logFilePath)
     logContent = logFile.text
-    // println(logContent);
 
     logContent
 
